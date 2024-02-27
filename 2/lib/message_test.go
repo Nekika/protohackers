@@ -1,37 +1,36 @@
 package lib
 
-import (
-	"reflect"
-	"testing"
-)
+import "testing"
 
-func TestParseMessage(t *testing.T) {
-	testCases := []struct {
-		Description string
-		Encoded     []byte
-		Message     Message
-	}{
-		{
-			Description: "Normal usage",
-			Encoded:     []byte{49, 00, 00, 30, 39, 00, 00, 00, 65},
-			Message: Message{
-				Kind:  MessageKindInsert,
-				Left:  12345,
-				Right: 101,
-			},
-		},
+func TestMessage_Kind(t *testing.T) {
+	var (
+		message  = Message{kind: 0x49}
+		expected = 'I'
+	)
+
+	if message.Kind() != expected {
+		t.Fatalf("kinds don't match: expected %v but got %v", expected, message.Kind())
 	}
+}
 
-	for _, tc := range testCases {
-		t.Run(tc.Description, func(t *testing.T) {
-			message, err := ParseMessage(tc.Encoded)
-			if err != nil {
-				t.Fatal(err)
-			}
+func TestMessage_Left(t *testing.T) {
+	var (
+		message        = Message{left: []byte{0x00, 0x00, 0x30, 0x39}}
+		expected int32 = 12345
+	)
 
-			if !reflect.DeepEqual(message, tc.Message) {
-				t.Fatalf("mesages don't match: expected %#v but got %#v", tc.Message, message)
-			}
-		})
+	if message.Left() != expected {
+		t.Fatalf("lefts don't match: expected %v but got %v", expected, message.Left())
+	}
+}
+
+func TestMessage_Right(t *testing.T) {
+	var (
+		message        = Message{right: []byte{0x00, 0x00, 0x00, 0x65}}
+		expected int32 = 101
+	)
+
+	if message.Right() != expected {
+		t.Fatalf("rights don't match: expected %v but got %v", expected, message.Right())
 	}
 }

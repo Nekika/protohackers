@@ -1,25 +1,25 @@
 package lib
 
 type Insert struct {
-	Price     int32
+	Amount    int32
 	Timestamp int32
 }
 
 func InsertFromMessage(message Message) Insert {
 	return Insert{
-		Price:     message.Left,
-		Timestamp: message.Right,
+		Amount:    message.Right(),
+		Timestamp: message.Left(),
 	}
 }
 
 type Query struct {
-	MaxTime int32
 	MinTime int32
+	MaxTime int32
 }
 
 func QueryFromMessage(message Message) Query {
 	return Query{
-		MaxTime: message.Right,
-		MinTime: message.Left,
+		MaxTime: message.Right(),
+		MinTime: message.Left(),
 	}
 }
