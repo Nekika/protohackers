@@ -1,0 +1,22 @@
+{{define "main"}}package main
+
+import (
+  "net"
+
+  "github.com/Nekika/protohackers/pkg/boilerplate"
+)
+
+const port = ":6543"
+
+func handler(conn *net.TCPConn) error {
+  panic("TODO")
+}
+
+func run() {
+  boilerplate.ListenTCP(port, handler)
+}
+
+func main() {
+  run()
+}
+{{end}}

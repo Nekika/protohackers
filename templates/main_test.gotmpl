@@ -1,0 +1,26 @@
+{{define "main_test"}}package main
+
+import (
+  "testing"
+)
+
+func TestMain(m *testing.M) {
+  go run()
+  m.Run()
+}
+
+func TestE2E(t *testing.T) {
+  testCases := []struct{
+    Description string
+    Message []byte
+    ExpectedResponse []byte
+  }{}
+
+  for _, tc := range testCases {
+    t.Run(tc.Description, func(t *testing.T) {
+      const host = "localhost" + port
+      panic("TODO")
+    })
+  }
+}
+{{end}}
